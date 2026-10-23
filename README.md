@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="logo.svg" alt="Arabic Alphabet logo" width="140">
+</p>
+
 # Arabic Alphabet الأبجدية
 
 A single-page site for learning the Arabic alphabet and your first phrases, with audio for every letter and phrase.
@@ -51,6 +55,10 @@ Reload the page after installing.
 - Plain HTML, CSS and vanilla JavaScript in one file
 - Fonts: [Amiri](https://fonts.google.com/specimen/Amiri) for Arabic, IBM Plex Sans / Mono for everything else (Google Fonts)
 - `localStorage` stores only your layout and voice choice
+
+## Logo
+
+`logo.svg` is an eight-pointed star (khatam), a classic motif in Islamic geometric art. In its centre is the letter ع (ʿayn), the most typical sound of Arabic. The letter is drawn from the Amiri font (SIL Open Font License).
 
 ## Roadmap ideas
 

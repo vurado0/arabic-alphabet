@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Arabic Alphabet Table</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%20role%3D%22img%22%20aria-label%3D%22Arabic%20Alphabet%20logo%22%3E%20%3Cpolygon%20points%3D%22160.3%2C25.0%20120.7%2C120.7%2025.0%2C160.3%2064.7%2C256.0%2025.0%2C351.7%20120.7%2C391.3%20160.3%2C487.0%20256.0%2C447.3%20351.7%2C487.0%20391.3%2C391.3%20487.0%2C351.7%20447.3%2C256.0%20487.0%2C160.3%20391.3%2C120.7%20351.7%2C25.0%20256.0%2C64.7%22%20fill%3D%22%230f6a5b%22/%3E%20%3Cpolygon%20points%3D%22174.9%2C60.1%20141.3%2C141.3%2060.1%2C174.9%2093.7%2C256.0%2060.1%2C337.1%20141.3%2C370.7%20174.9%2C451.9%20256.0%2C418.3%20337.1%2C451.9%20370.7%2C370.7%20451.9%2C337.1%20418.3%2C256.0%20451.9%2C174.9%20370.7%2C141.3%20337.1%2C60.1%20256.0%2C93.7%22%20fill%3D%22none%22%20stroke%3D%22%23d9b25f%22%20stroke-width%3D%227%22%20stroke-linejoin%3D%22miter%22/%3E%20%3Ccircle%20cx%3D%22256%22%20cy%3D%22256%22%20r%3D%22150%22%20fill%3D%22none%22%20stroke%3D%22%23d9b25f%22%20stroke-width%3D%222.5%22%20opacity%3D%22.55%22/%3E%20%3Cpath%20transform%3D%22translate%28256%20256%29%20scale%280.25%20-0.25%29%20translate%28-395.6%204.9%29%22%20fill%3D%22%23fbf3df%22%20d%3D%22M237%20-334Q320%20-363%20433.0%20-366.5Q546%20-370%20688%20-346Q733%20-337%20734%20-349Q736%20-366%20708%20-381L578%20-458Q561%20-468%20536.5%20-474.0Q512%20-480%20480%20-482Q415%20-486%20362.0%20-483.5Q309%20-481%20267%20-471Q22%20-409%2063%20-115Q84%2036%20177%20154Q70%20202%2076%20249Q93%20389%20201%20462Q241%20489%20293%20458Q330%20436%20349%20409Q356%20398%20353%20389Q350%20380%20325%20386Q216%20408%20125%20304Q198%20245%20286%20251Q298%20253%20326%20270Q369%20298%20398.0%20316.5Q427%20335%20443%20344Q490%20371%20481%20334L450%20258Q444%20244%20431%20237Q358%20204%20256%20130Q116%2030%20101%20-128Q86%20-281%20237%20-334Z%22/%3E%20%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
 <style>
@@ -45,6 +46,8 @@ body {
   padding-right: max(16px, env(safe-area-inset-right, 0px));
   display: grid; gap: 18px;
 }
+.brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.logo { width: 52px; height: 52px; flex: none; }
 h1 { margin: 0; font-size: 1.6rem; font-weight: 600; text-wrap: balance; }
 h1 span { font-family: var(--f-ar); font-weight: 700; color: var(--accent); margin-left: 8px; }
 .intro { margin: 0; color: var(--muted); max-width: 68ch; }
@@ -148,7 +151,15 @@ html[data-view="mobile"] td.pp { grid-area: play; align-self: center; }
 </head>
 <body>
 <div class="wrap">
-  <h1>Arabic Alphabet <span>الأبجدية</span></h1>
+  <header class="brand">
+    <svg class="logo" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" viewBox="0 0 512 512">
+  <polygon points="160.3,25.0 120.7,120.7 25.0,160.3 64.7,256.0 25.0,351.7 120.7,391.3 160.3,487.0 256.0,447.3 351.7,487.0 391.3,391.3 487.0,351.7 447.3,256.0 487.0,160.3 391.3,120.7 351.7,25.0 256.0,64.7" fill="#0f6a5b"/>
+  <polygon points="174.9,60.1 141.3,141.3 60.1,174.9 93.7,256.0 60.1,337.1 141.3,370.7 174.9,451.9 256.0,418.3 337.1,451.9 370.7,370.7 451.9,337.1 418.3,256.0 451.9,174.9 370.7,141.3 337.1,60.1 256.0,93.7" fill="none" stroke="#d9b25f" stroke-width="7" stroke-linejoin="miter"/>
+  <circle cx="256" cy="256" r="150" fill="none" stroke="#d9b25f" stroke-width="2.5" opacity=".55"/>
+  <path transform="translate(256 256) scale(0.25 -0.25) translate(-395.6 4.9)" fill="#fbf3df" d="M237 -334Q320 -363 433.0 -366.5Q546 -370 688 -346Q733 -337 734 -349Q736 -366 708 -381L578 -458Q561 -468 536.5 -474.0Q512 -480 480 -482Q415 -486 362.0 -483.5Q309 -481 267 -471Q22 -409 63 -115Q84 36 177 154Q70 202 76 249Q93 389 201 462Q241 489 293 458Q330 436 349 409Q356 398 353 389Q350 380 325 386Q216 408 125 304Q198 245 286 251Q298 253 326 270Q369 298 398.0 316.5Q427 335 443 344Q490 371 481 334L450 258Q444 244 431 237Q358 204 256 130Q116 30 101 -128Q86 -281 237 -334Z"/>
+</svg>
+    <h1>Arabic Alphabet <span>الأبجدية</span></h1>
+  </header>
   <p class="intro">28 letters plus hamza. Arabic is read right to left. Press <b>Name</b> to hear the letter's name, <b>Sound</b> to hear it with the three short vowels (a, i, u). Rows tagged <span class="tag">new sound</span> have no real match in English, German or Japanese.</p>
   <div class="bar">
     <label for="voicesel">Voice
