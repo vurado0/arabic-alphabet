@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Arabic Alphabet Table</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: one reading column, one scrollable reference table. Letters large in a calligraphic Naskh face, everything else quiet. */
+:root {
+  --bg: #f6f7f4;
+  --surface: #ffffff;
+  --fg: #1d2522;
+  --muted: #5d6b66;
+  --line: #dde3df;
+  --accent: #0f6a5b;
+  --accent-soft: #e3f0ec;
+  --warn: #9a4a12;
+  --warn-soft: #f8ebe0;
+  --f-ar: "Amiri", "Noto Naskh Arabic", "Geeza Pro", "Times New Roman", serif;
+  --f-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121715; --surface: #1a211e; --fg: #e6ece9; --muted: #9aaaa4; --line: #2c3632;
+    --accent: #5cc4ae; --accent-soft: #1d3530; --warn: #f0a46a; --warn-soft: #3a2a1d;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #121715; --surface: #1a211e; --fg: #e6ece9; --muted: #9aaaa4; --line: #2c3632;
+  --accent: #5cc4ae; --accent-soft: #1d3530; --warn: #f0a46a; --warn-soft: #3a2a1d;
+  color-scheme: dark;
+}
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--f-body); font-size: 15px; line-height: 1.5;
+}
+.wrap {
+  max-width: 1180px; margin: 0 auto;
+  padding-block: 28px 48px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 18px;
+}
+h1 { margin: 0; font-size: 1.6rem; font-weight: 600; text-wrap: balance; }
+h1 span { font-family: var(--f-ar); font-weight: 700; color: var(--accent); margin-left: 8px; }
+.intro { margin: 0; color: var(--muted); max-width: 68ch; }
+.bar { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; font-size: 0.85rem; color: var(--muted); }
+.bar label { display: inline-flex; gap: 6px; align-items: center; cursor: pointer; }
+.status { padding: 2px 8px; border-radius: 4px; background: var(--accent-soft); color: var(--accent); font-weight: 500; }
+.status.bad { background: var(--warn-soft); color: var(--warn); }
+.tablebox { overflow-x: auto; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 860px; }
+th, td { padding: 10px 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: middle; }
+th {
+  font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted);
+  font-weight: 600; background: var(--bg); position: sticky; top: 0;
+}
+tr:last-child td { border-bottom: 0; }
+td.n { color: var(--muted); font-family: var(--f-mono); font-size: 0.8rem; font-variant-numeric: tabular-nums; width: 2.5em; }
+td.ltr { font-family: var(--f-ar); font-size: 2.6rem; line-height: 1; color: var(--accent); text-align: center; width: 1.6em; }
+td.forms { font-family: var(--f-ar); font-size: 1.5rem; white-space: nowrap; word-spacing: 0.4em; }
+td.name .ar { font-family: var(--f-ar); font-size: 1.25rem; display: block; line-height: 1.2; }
+td.name .lat { color: var(--muted); font-size: 0.85rem; }
+td.tr { font-family: var(--f-mono); font-size: 1rem; white-space: nowrap; }
+td.tr .ipa { display: block; color: var(--muted); font-size: 0.78rem; }
+.tag { display: inline-block; margin-top: 4px; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  padding: 1px 6px; border-radius: 3px; background: var(--warn-soft); color: var(--warn); font-family: var(--f-body); }
+.hints { display: grid; grid-template-columns: auto 1fr; gap: 2px 8px; font-size: 0.86rem; min-width: 300px; }
+.hints b { font-family: var(--f-mono); font-size: 0.7rem; color: var(--muted); font-weight: 500; padding-top: 3px; }
+.hints .none { color: var(--muted); font-style: italic; }
+.tip { grid-column: 1 / -1; margin-top: 4px; color: var(--fg); font-size: 0.82rem; border-left: 2px solid var(--accent); padding-left: 8px; }
+td.play { white-space: nowrap; }
+.play-btns { display: flex; flex-direction: column; gap: 6px; }
+button {
+  font: inherit; font-size: 0.8rem; font-weight: 500; cursor: pointer;
+  border: 1px solid var(--accent); color: var(--accent); background: transparent;
+  border-radius: 4px; padding: 4px 10px; display: inline-flex; gap: 6px; align-items: center;
+}
+button:hover { background: var(--accent-soft); }
+button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+button.on { background: var(--accent); color: var(--surface); }
+button .ar { font-family: var(--f-ar); font-size: 1rem; line-height: 1; }
+nav { display: flex; gap: 8px; flex-wrap: wrap; }
+nav a { font-size: 0.85rem; font-weight: 500; color: var(--accent); text-decoration: none; border: 1px solid var(--line); background: var(--surface); padding: 4px 12px; border-radius: 4px; }
+nav a:hover { border-color: var(--accent); }
+h2 { margin: 18px 0 0; font-size: 1.25rem; font-weight: 600; scroll-margin-top: 16px; }
+h2 span { font-family: var(--f-ar); color: var(--accent); margin-left: 6px; }
+table.ph { min-width: 640px; }
+tr.grp td { background: var(--bg); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 600; padding-block: 8px; }
+td.phar { font-family: var(--f-ar); font-size: 1.55rem; line-height: 1.4; text-align: right; white-space: nowrap; }
+td.phtr { font-family: var(--f-mono); font-size: 0.92rem; }
+td.phen { font-size: 0.9rem; }
+td.phen .note { display: block; color: var(--muted); font-size: 0.8rem; margin-top: 2px; }
+.foot { font-size: 0.82rem; color: var(--muted); max-width: 72ch; margin: 0; }
+
+/* ---- Switch ---- */
+select { font: inherit; font-size: 0.85rem; color: var(--fg); background: var(--surface); border: 1px solid var(--line);
+  border-radius: 4px; padding: 5px 8px; min-height: 36px; max-width: 100%; }
+select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.bar label[for="voicesel"] { min-width: 0; max-width: 100%; }
+.seg { display: inline-flex; border: 1px solid var(--accent); border-radius: 6px; overflow: hidden; margin-left: auto; }
+.seg button { border: 0; border-radius: 0; padding: 6px 14px; min-height: 36px; }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--surface); }
+
+/* ---- Mobile view: every row becomes a card ---- */
+html[data-view="mobile"] .wrap { max-width: 600px; gap: 14px; }
+html[data-view="mobile"] h1 { font-size: 1.35rem; }
+html[data-view="mobile"] .tablebox { overflow: visible; border: 0; background: none; border-radius: 0; }
+html[data-view="mobile"] table, html[data-view="mobile"] tbody,
+html[data-view="mobile"] tr, html[data-view="mobile"] td { display: block; min-width: 0; }
+html[data-view="mobile"] thead { display: none; }
+html[data-view="mobile"] tbody { display: grid; gap: 10px; }
+html[data-view="mobile"] td { padding: 0; border: 0; }
+html[data-view="mobile"] td.n { display: none; }
+html[data-view="mobile"] button { min-height: 40px; padding: 6px 14px; font-size: 0.85rem; }
+
+html[data-view="mobile"] #rows tr {
+  display: grid; grid-template-columns: 3.4rem minmax(0, 1fr) auto; gap: 10px 12px;
+  grid-template-areas: "ltr name play" "ltr tr play" "forms forms forms" "hc hc hc";
+  background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px;
+}
+html[data-view="mobile"] td.ltr { grid-area: ltr; font-size: 3rem; align-self: center; }
+html[data-view="mobile"] td.name { grid-area: name; }
+html[data-view="mobile"] td.tr { grid-area: tr; }
+html[data-view="mobile"] td.tr .ipa { display: inline; margin-left: 6px; }
+html[data-view="mobile"] td.tr .tag { margin: 0 0 0 6px; }
+html[data-view="mobile"] td.play { grid-area: play; align-self: center; }
+html[data-view="mobile"] td.forms { grid-area: forms; font-size: 1.4rem; text-align: right; border-top: 1px solid var(--line); padding-top: 8px; }
+html[data-view="mobile"] td.hc { grid-area: hc; }
+html[data-view="mobile"] .hints { min-width: 0; }
+
+html[data-view="mobile"] #phrows tr {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px;
+  grid-template-areas: "ar play" "trn play" "en en";
+  background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px;
+}
+html[data-view="mobile"] #phrows tr.grp { display: block; background: none; border: 0; padding: 10px 2px 0; }
+html[data-view="mobile"] #phrows tr.grp td { background: none; padding: 0; }
+html[data-view="mobile"] td.phar { grid-area: ar; white-space: normal; font-size: 1.5rem; }
+html[data-view="mobile"] td.phtr { grid-area: trn; text-align: right; }
+html[data-view="mobile"] td.phen { grid-area: en; border-top: 1px solid var(--line); padding-top: 6px; margin-top: 4px; }
+html[data-view="mobile"] td.pp { grid-area: play; align-self: center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Arabic Alphabet <span>الأبجدية</span></h1>
+  <p class="intro">28 letters plus hamza. Arabic is read right to left. Press <b>Name</b> to hear the letter's name, <b>Sound</b> to hear it with the three short vowels (a, i, u). Rows tagged <span class="tag">new sound</span> have no real match in English, German or Japanese.</p>
+  <div class="bar">
+    <label for="voicesel">Voice
+      <select id="voicesel"><option value="">Loading voices…</option></select>
+    </label>
+    <button type="button" id="test" data-say="مَرْحَبًا، كَيْفَ حَالُكَ؟">▶ Test</button>
+    <span id="voice" class="status">Checking for Arabic voices…</span>
+    <label for="slow"><input type="checkbox" id="slow" checked> Slow</label>
+    <div class="seg" role="group" aria-label="Layout">
+      <button type="button" id="v-mobile" data-view="mobile" aria-pressed="false">Mobile</button>
+      <button type="button" id="v-pc" data-view="pc" aria-pressed="false">PC</button>
+    </div>
+  </div>
+
+  <p id="voicehelp" class="foot" hidden>Want more voices? Install extra Arabic voices on your device, then reload this page.
+    <b>Mac:</b> System Settings → Accessibility → Spoken Content → System voice → Manage Voices → Arabic.
+    <b>iPhone:</b> Settings → Accessibility → Spoken Content → Voices → Arabic.
+    <b>Windows:</b> Settings → Time &amp; language → Speech → Add voices → Arabic.
+    <b>Android:</b> Settings → Text-to-speech → Speech Services by Google → Install voice data → Arabic.</p>
+
+  <nav><a href="#letters">Letters</a><a href="#phrases">50 Phrases</a></nav>
+
+  <h2 id="letters">Letters <span>الحروف</span></h2>
+  <div class="tablebox">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th><th>Letter</th><th>Forms<br>end · mid · start</th><th>Name</th><th>Latin</th><th>How to say it</th><th>Listen</th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+
+  <p class="foot">Audio uses your device's built-in Arabic text-to-speech voice (good on Mac and iPhone, varies on Windows/Android). Forms read right to left: the rightmost shape starts a word. Letters with only two forms (ا د ذ ر ز و) never connect to the letter after them.</p>
+
+  <h2 id="phrases">50 Starter Phrases <span>عبارات</span></h2>
+  <p class="intro">Modern Standard Arabic, understood everywhere. Arabic changes some words depending on who you talk to: these use the form for talking to a man, and the note shows the form for a woman where it differs.</p>
+  <div class="tablebox">
+    <table class="ph">
+      <thead>
+        <tr><th>#</th><th style="text-align:right">Arabic</th><th>Say it</th><th>Meaning</th><th>Listen</th></tr>
+      </thead>
+      <tbody id="phrows"></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+/* Layout switch: Mobile (cards) or PC (table). Remembers the choice in this browser. */
+const root = document.documentElement;
+function setView(v, save) {
+  root.setAttribute("data-view", v);
+  document.getElementById("v-mobile").setAttribute("aria-pressed", v === "mobile");
+  document.getElementById("v-pc").setAttribute("aria-pressed", v === "pc");
+  if (save) { try { localStorage.setItem("ar-view", v); } catch (e) {} }
+}
+let saved = null;
+try { saved = localStorage.getItem("ar-view"); } catch (e) {}
+setView(saved === "pc" || saved === "mobile" ? saved : (window.innerWidth < 800 ? "mobile" : "pc"), false);
+document.querySelectorAll(".seg button").forEach(b => b.addEventListener("click", () => setView(b.dataset.view, true)));
+
+const L = [
+  { l:"ا", f:"ـا ا", n:"أَلِف", nl:"alif", t:"ā", ipa:"/aː/", s:"آ",
+    en:"a in “father”", de:"a in „Vater“", ja:"アー", ru:"долгое а",
+    tip:"Mostly a long “aa”, or a silent seat for hamza at word start." },
+  { l:"ب", f:"ـب ـبـ بـ", n:"بَاء", nl:"bā’", t:"b", ipa:"/b/",
+    en:"b in “bed”", de:"b in „Ball“", ja:"バ", ru:"б" },
+  { l:"ت", f:"ـت ـتـ تـ", n:"تَاء", nl:"tā’", t:"t", ipa:"/t/",
+    en:"t in “stop” (no puff of air)", de:"t, aber ohne Hauch", ja:"タ", ru:"т" },
+  { l:"ث", f:"ـث ـثـ ثـ", n:"ثَاء", nl:"thā’", t:"th", ipa:"/θ/", hard:true,
+    en:"th in “think”", de:null, ja:null, ru:null,
+    tip:"Tongue tip between the teeth, blow out softly. Not s, not f." },
+  { l:"ج", f:"ـج ـجـ جـ", n:"جِيم", nl:"jīm", t:"j", ipa:"/dʒ/",
+    en:"j in “jam”", de:"dsch in „Dschungel“", ja:"ジャ", ru:"дж" },
+  { l:"ح", f:"ـح ـحـ حـ", n:"حَاء", nl:"ḥā’", t:"ḥ", ipa:"/ħ/", hard:true,
+    en:null, de:null, ja:null, ru:null,
+    tip:"A strong, breathy h squeezed deep in the throat, like a loud “haaa” to fog up glasses. No scraping." },
+  { l:"خ", f:"ـخ ـخـ خـ", n:"خَاء", nl:"khā’", t:"kh", ipa:"/x/",
+    en:"ch in Scottish “loch”", de:"ch in „Bach“", ja:"ハ with a scrape", ru:"х" },
+  { l:"د", f:"ـد د", n:"دَال", nl:"dāl", t:"d", ipa:"/d/",
+    en:"d in “dog”", de:"d in „Dach“", ja:"ダ", ru:"д" },
+  { l:"ذ", f:"ـذ ذ", n:"ذَال", nl:"dhāl", t:"dh", ipa:"/ð/", hard:true,
+    en:"th in “this”", de:null, ja:null, ru:null,
+    tip:"Same tongue position as ث, but with voice." },
+  { l:"ر", f:"ـر ر", n:"رَاء", nl:"rā’", t:"r", ipa:"/r/",
+    en:"Spanish rolled r", de:"Zungenspitzen-R (bairisch)", ja:"ラ (rolled a bit more)", ru:"р",
+    tip:"Tongue tip, never the throat R of standard German." },
+  { l:"ز", f:"ـز ز", n:"زَاي", nl:"zāy", t:"z", ipa:"/z/",
+    en:"z in “zoo”", de:"s in „Sonne“", ja:"ザ", ru:"з" },
+  { l:"س", f:"ـس ـسـ سـ", n:"سِين", nl:"sīn", t:"s", ipa:"/s/",
+    en:"s in “see”", de:"ß in „Fuß“", ja:"サ", ru:"с" },
+  { l:"ش", f:"ـش ـشـ شـ", n:"شِين", nl:"shīn", t:"sh", ipa:"/ʃ/",
+    en:"sh in “ship”", de:"sch in „Schule“", ja:"シャ", ru:"ш (but softer)" },
+  { l:"ص", f:"ـص ـصـ صـ", n:"صَاد", nl:"ṣād", t:"ṣ", ipa:"/sˤ/", hard:true,
+    en:"“heavy” s, as in “sod”", de:"dunkles, tiefes s", ja:null, ru:"твёрдое, «тёмное» с",
+    tip:"Emphatic: pull the back of the tongue down and back. Vowels next to it sound darker (a → more like “o”)." },
+  { l:"ض", f:"ـض ـضـ ضـ", n:"ضَاد", nl:"ḍād", t:"ḍ", ipa:"/dˤ/", hard:true,
+    en:"“heavy” d, as in “dull”", de:"dunkles, tiefes d", ja:null, ru:"«тёмное» д",
+    tip:"Emphatic version of د. Arabic is called “the language of ḍād” because this sound is so rare." },
+  { l:"ط", f:"ـط ـطـ طـ", n:"طَاء", nl:"ṭā’", t:"ṭ", ipa:"/tˤ/", hard:true,
+    en:"“heavy” t, as in “tall”", de:"dunkles, tiefes t", ja:null, ru:"«тёмное» т",
+    tip:"Emphatic version of ت. No puff of air." },
+  { l:"ظ", f:"ـظ ـظـ ظـ", n:"ظَاء", nl:"ẓā’", t:"ẓ", ipa:"/ðˤ/", hard:true,
+    en:"“heavy” th in “this”", de:null, ja:null, ru:null,
+    tip:"Emphatic version of ذ. In many dialects it is said as a heavy z." },
+  { l:"ع", f:"ـع ـعـ عـ", n:"عَيْن", nl:"‘ayn", t:"‘", ipa:"/ʕ/", hard:true,
+    en:null, de:null, ja:null, ru:null,
+    tip:"Tighten the throat as if starting to gag, then say “a”. A voiced squeeze, not a stop. Listen often; this one takes time." },
+  { l:"غ", f:"ـغ ـغـ غـ", n:"غَيْن", nl:"ghayn", t:"gh", ipa:"/ɣ/",
+    en:"like gargling", de:"Rachen-R in „rot“ (sehr nah!)", ja:null, ru:"фрикативное г (южное «ага»)",
+    tip:"Voiced partner of خ. A German speaker's normal R is a good starting point." },
+  { l:"ف", f:"ـف ـفـ فـ", n:"فَاء", nl:"fā’", t:"f", ipa:"/f/",
+    en:"f in “fan”", de:"f in „Fisch“", ja:"フ (teeth on lip)", ru:"ф" },
+  { l:"ق", f:"ـق ـقـ قـ", n:"قَاف", nl:"qāf", t:"q", ipa:"/q/", hard:true,
+    en:"k, but much deeper in the throat", de:"k ganz hinten am Zäpfchen", ja:"ク, deeper", ru:"к, но глубже в горле",
+    tip:"Touch the very back of the tongue to the uvula. Don't confuse with ك." },
+  { l:"ك", f:"ـك ـكـ كـ", n:"كَاف", nl:"kāf", t:"k", ipa:"/k/",
+    en:"k in “kite”", de:"k in „Kind“", ja:"カ", ru:"к" },
+  { l:"ل", f:"ـل ـلـ لـ", n:"لَام", nl:"lām", t:"l", ipa:"/l/",
+    en:"light l in “leaf”", de:"l in „Licht“", ja:"ラ with tongue held", ru:"светлое л (почти ль)",
+    tip:"Light by default. Only dark in the word “Allāh”." },
+  { l:"م", f:"ـم ـمـ مـ", n:"مِيم", nl:"mīm", t:"m", ipa:"/m/",
+    en:"m in “moon”", de:"m in „Mond“", ja:"マ", ru:"м" },
+  { l:"ن", f:"ـن ـنـ نـ", n:"نُون", nl:"nūn", t:"n", ipa:"/n/",
+    en:"n in “no”", de:"n in „Nase“", ja:"ナ", ru:"н" },
+  { l:"ه", f:"ـه ـهـ هـ", n:"هَاء", nl:"hā’", t:"h", ipa:"/h/",
+    en:"h in “hat”", de:"h in „Haus“", ja:"ハ", ru:"лёгкое h (не х)",
+    tip:"Pronounced even at the end of a word." },
+  { l:"و", f:"ـو و", n:"وَاو", nl:"wāw", t:"w / ū", ipa:"/w/, /uː/",
+    en:"w in “wet”, or oo in “food”", de:"engl. w, oder u in „Ufer“", ja:"ワ / ウー", ru:"у (как гласная)" },
+  { l:"ي", f:"ـي ـيـ يـ", n:"يَاء", nl:"yā’", t:"y / ī", ipa:"/j/, /iː/",
+    en:"y in “yes”, or ee in “see”", de:"j in „ja“, oder ie in „Liebe“", ja:"ヤ / イー", ru:"й / и" },
+  { l:"ء", f:"أ إ ؤ ئ", n:"هَمْزَة", nl:"hamza", t:"’", ipa:"/ʔ/", s:"أَ، إِ، أُ",
+    en:"the break in “uh-oh”", de:"Knacklaut in „Spiegel-ei“", ja:"小さい「っ」before a vowel", ru:"пауза в «не-а»",
+    tip:"Not one of the 28, but a real consonant. Usually written on a carrier: أ إ ؤ ئ." }
+];
+
+const FATHA = "َ", KASRA = "ِ", DAMMA = "ُ";
+function soundText(x) {
+  if (x.s) return x.s;
+  return x.l + FATHA + "ا، " + x.l + KASRA + "ي، " + x.l + DAMMA + "و";
+}
+
+function hint(code, txt) {
+  return `<b>${code}</b>` + (txt ? `<span>${txt}</span>` : `<span class="none">no equivalent</span>`);
+}
+
+const rows = document.getElementById("rows");
+rows.innerHTML = L.map((x, i) => `
+  <tr>
+    <td class="n">${i < 28 ? i + 1 : "+"}</td>
+    <td class="ltr" lang="ar">${x.l}</td>
+    <td class="forms" lang="ar" dir="rtl">${x.f.split(" ").reverse().join(" ")}</td>
+    <td class="name"><span class="ar" lang="ar" dir="rtl">${x.n}</span><span class="lat">${x.nl}</span></td>
+    <td class="tr">${x.t}<span class="ipa">${x.ipa}</span>${x.hard ? '<span class="tag">new sound</span>' : ""}</td>
+    <td class="hc"><div class="hints">
+      ${hint("EN", x.en)}${hint("DE", x.de)}${hint("JA", x.ja)}${hint("RU", x.ru)}
+      ${x.tip ? `<span class="tip">${x.tip}</span>` : ""}
+    </div></td>
+    <td class="play"><div class="play-btns">
+      <button type="button" data-say="${x.n}">▶ Name</button>
+      <button type="button" data-say="${soundText(x)}">▶ Sound</button>
+    </div></td>
+  </tr>`).join("");
+
+const P = [
+  ["Greetings & goodbyes", [
+    ["السَّلَامُ عَلَيْكُمْ", "as-salāmu ʿalaykum", "Hello (lit. peace be upon you)"],
+    ["وَعَلَيْكُمُ السَّلَامُ", "wa ʿalaykumu s-salām", "Reply to the greeting above"],
+    ["مَرْحَبًا", "marḥaban", "Hi"],
+    ["أَهْلًا وَسَهْلًا", "ahlan wa sahlan", "Welcome"],
+    ["صَبَاحُ الْخَيْرِ", "ṣabāḥu l-khayr", "Good morning"],
+    ["صَبَاحُ النُّورِ", "ṣabāḥu n-nūr", "Good morning (reply)"],
+    ["مَسَاءُ الْخَيْرِ", "masāʾu l-khayr", "Good evening"],
+    ["مَسَاءُ النُّورِ", "masāʾu n-nūr", "Good evening (reply)"],
+    ["تُصْبِحُ عَلَى خَيْرٍ", "tuṣbiḥu ʿalā khayr", "Good night", "To a woman: tuṣbiḥīna ʿalā khayr"],
+    ["مَعَ السَّلَامَةِ", "maʿa s-salāma", "Goodbye"],
+    ["إِلَى اللِّقَاءِ", "ilā l-liqāʾ", "See you later"]
+  ]],
+  ["Polite words", [
+    ["شُكْرًا", "shukran", "Thank you"],
+    ["شُكْرًا جَزِيلًا", "shukran jazīlan", "Thank you very much"],
+    ["عَفْوًا", "ʿafwan", "You're welcome / Excuse me"],
+    ["مِنْ فَضْلِكَ", "min faḍlik", "Please", "To a woman: min faḍliki"],
+    ["آسِفٌ", "āsif", "I'm sorry", "Said by a woman: āsifa"],
+    ["لَا بَأْسَ", "lā baʾs", "No problem / It's okay"],
+    ["تَفَضَّلْ", "tafaḍḍal", "Here you go / Go ahead", "To a woman: tafaḍḍalī"]
+  ]],
+  ["Yes, no & short answers", [
+    ["نَعَمْ", "naʿam", "Yes"],
+    ["لَا", "lā", "No"],
+    ["حَسَنًا", "ḥasanan", "Okay"],
+    ["رُبَّمَا", "rubbamā", "Maybe"],
+    ["لَا أَعْرِفُ", "lā aʿrif", "I don't know"]
+  ]],
+  ["Getting to know someone", [
+    ["كَيْفَ حَالُكَ؟", "kayfa ḥāluk?", "How are you?", "To a woman: kayfa ḥāluki?"],
+    ["أَنَا بِخَيْرٍ، الْحَمْدُ لِلَّهِ", "anā bi-khayr, al-ḥamdu lillāh", "I'm fine, thank God"],
+    ["وَأَنْتَ؟", "wa anta?", "And you?", "To a woman: wa anti?"],
+    ["مَا اسْمُكَ؟", "mā smuk?", "What's your name?", "To a woman: mā smuki?"],
+    ["اِسْمِي كَايْتُو", "ismī Kaito", "My name is Kaito"],
+    ["تَشَرَّفْنَا", "tasharrafnā", "Nice to meet you"],
+    ["مِنْ أَيْنَ أَنْتَ؟", "min ayna anta?", "Where are you from?", "To a woman: min ayna anti?"],
+    ["أَنَا مِنَ النَّمْسَا", "anā mina n-namsā", "I'm from Austria"]
+  ]],
+  ["When you're learning", [
+    ["هَلْ تَتَكَلَّمُ الْإِنْجِلِيزِيَّةَ؟", "hal tatakallamu l-injilīziyya?", "Do you speak English?", "To a woman: hal tatakallamīna…"],
+    ["أَتَكَلَّمُ الْعَرَبِيَّةَ قَلِيلًا", "atakallamu l-ʿarabiyya qalīlan", "I speak a little Arabic"],
+    ["أَفْهَمُ", "afham", "I understand"],
+    ["لَا أَفْهَمُ", "lā afham", "I don't understand"],
+    ["تَكَلَّمْ بِبُطْءٍ مِنْ فَضْلِكَ", "takallam bi-buṭʾ min faḍlik", "Please speak slowly", "To a woman: takallamī bi-buṭʾ min faḍliki"],
+    ["أَعِدْ مِنْ فَضْلِكَ", "aʿid min faḍlik", "Please repeat", "To a woman: aʿīdī min faḍliki"],
+    ["مَاذَا يَعْنِي هَذَا؟", "mādhā yaʿnī hādhā?", "What does this mean?"],
+    ["كَيْفَ أَقُولُ هَذَا بِالْعَرَبِيَّةِ؟", "kayfa aqūlu hādhā bil-ʿarabiyya?", "How do I say this in Arabic?"]
+  ]],
+  ["Out and about", [
+    ["أَيْنَ الْحَمَّامُ؟", "ayna l-ḥammām?", "Where is the bathroom?"],
+    ["بِكَمْ هَذَا؟", "bikam hādhā?", "How much is this?"],
+    ["أُرِيدُ هَذَا", "urīdu hādhā", "I'd like this"],
+    ["أُرِيدُ مَاءً", "urīdu māʾan", "I'd like water"],
+    ["الْحِسَابُ مِنْ فَضْلِكَ", "al-ḥisāb min faḍlik", "The bill, please"],
+    ["أَنَا جَائِعٌ", "anā jāʾiʿ", "I'm hungry", "Said by a woman: anā jāʾiʿa"],
+    ["سَاعِدْنِي مِنْ فَضْلِكَ", "sāʿidnī min faḍlik", "Help me, please", "To a woman: sāʿidīnī min faḍliki"]
+  ]],
+  ["Everyday expressions", [
+    ["إِنْ شَاءَ اللَّهُ", "in shāʾa llāh", "Hopefully (lit. if God wills)"],
+    ["مَا شَاءَ اللَّهُ", "mā shāʾa llāh", "Wonderful! (praise, admiration)"],
+    ["يَلَّا", "yallā", "Let's go! / Come on!"],
+    ["بِالتَّوْفِيقِ", "bit-tawfīq", "Good luck"]
+  ]]
+];
+
+let k = 0;
+document.getElementById("phrows").innerHTML = P.map(([g, items]) =>
+  `<tr class="grp"><td colspan="5">${g}</td></tr>` +
+  items.map(([ar, tr, en, note]) => `
+    <tr>
+      <td class="n">${++k}</td>
+      <td class="phar" lang="ar" dir="rtl">${ar}</td>
+      <td class="phtr">${tr}</td>
+      <td class="phen">${en}${note ? `<span class="note">${note}</span>` : ""}</td>
+      <td class="play pp"><button type="button" data-say="${ar}">▶ Play</button></td>
+    </tr>`).join("")
+).join("");
+
+/* Speech */
+const synth = window.speechSynthesis;
+const status = document.getElementById("voice");
+const sel = document.getElementById("voicesel");
+const help = document.getElementById("voicehelp");
+let arVoices = [];
+let arVoice = null;
+
+function regionName(lang) {
+  const code = (lang.split(/[-_]/)[1] || "").toUpperCase();
+  if (!code || code === "001") return "Standard";
+  try { return new Intl.DisplayNames(["en"], { type: "region" }).of(code) || code; } catch (e) { return code; }
+}
+
+function pickVoice() {
+  if (!synth) return;
+  const all = synth.getVoices();
+  if (!all.length) return;
+  arVoices = all.filter(v => /^ar/i.test(v.lang));
+  let saved = null;
+  try { saved = localStorage.getItem("ar-voice"); } catch (e) {}
+  if (!arVoices.length) {
+    sel.innerHTML = '<option value="">No Arabic voice</option>';
+    sel.disabled = true;
+    arVoice = null;
+    status.textContent = "No Arabic voice installed";
+    status.classList.add("bad");
+    help.hidden = false;
+    return;
+  }
+  sel.disabled = false;
+  sel.innerHTML = arVoices.map((v, i) =>
+    `<option value="${i}">${v.name} · ${regionName(v.lang)}</option>`).join("");
+  let idx = arVoices.findIndex(v => v.voiceURI === saved);
+  if (idx < 0) idx = Math.max(0, arVoices.findIndex(v => v.default));
+  sel.value = String(idx);
+  arVoice = arVoices[idx];
+  status.textContent = arVoices.length + (arVoices.length === 1 ? " Arabic voice found" : " Arabic voices found");
+  status.classList.toggle("bad", arVoices.length < 5);
+  help.hidden = arVoices.length >= 5;
+}
+
+sel.addEventListener("change", () => {
+  arVoice = arVoices[Number(sel.value)] || null;
+  try { if (arVoice) localStorage.setItem("ar-voice", arVoice.voiceURI); } catch (e) {}
+  document.getElementById("test").click();
+});
+
+if (!synth) {
+  status.textContent = "This browser can't play speech.";
+  status.classList.add("bad");
+  sel.disabled = true;
+} else {
+  pickVoice();
+  synth.addEventListener?.("voiceschanged", pickVoice);
+  setTimeout(pickVoice, 1500);
+}
+
+let current = null;
+document.addEventListener("click", e => {
+  const b = e.target.closest("button[data-say]");
+  if (!b || !synth) return;
+  synth.cancel();
+  if (current) current.classList.remove("on");
+  const u = new SpeechSynthesisUtterance(b.dataset.say);
+  u.lang = arVoice ? arVoice.lang : "ar-SA";
+  if (arVoice) u.voice = arVoice;
+  u.rate = document.getElementById("slow").checked ? 0.6 : 0.95;
+  current = b;
+  b.classList.add("on");
+  u.onend = u.onerror = () => b.classList.remove("on");
+  synth.speak(u);
+});
+</script>
+</body>
+</html>
